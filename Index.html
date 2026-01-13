@@ -493,7 +493,7 @@
       <div class="dashboard-header">
         <h1 class="page-title"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
         <div class="action-buttons">
-          <button class="btn btn-primary" onclick="openAddEntryModal()"><i class="fas fa-plus"></i> Add New Entry</button>
+          <button class="btn btn-primary" disabled title="Data modification is not available for external read-only sheets"><i class="fas fa-plus"></i> Add Entry (Disabled)</button>
           <button class="btn btn-secondary" onclick="refreshData()"><i class="fas fa-sync"></i> Refresh</button>
         </div>
       </div>
@@ -989,7 +989,7 @@
               alert('Error updating entry: ' + response.message);
             }
           })
-          .updateDataEntry(parseInt(rowNumber), formData);
+          alert("Data updating is disabled for external read-only sheets. Please contact the administrator to update the source spreadsheet.");
       } else {
         // Save new entry
         google.script.run
@@ -1002,7 +1002,7 @@
               alert('Error saving entry: ' + response.message);
             }
           })
-          .saveDataEntry(formData);
+          alert("Data saving is disabled for external read-only sheets. Please contact the administrator to update the source spreadsheet.");
       }
     });
 
@@ -1018,7 +1018,7 @@
               alert('Error deleting entry: ' + response.message);
             }
           })
-          .deleteDataEntry(parseInt(rowNumber));
+          alert("Data deletion is disabled for external read-only sheets. Please contact the administrator to update the source spreadsheet.");
       }
     }
 
