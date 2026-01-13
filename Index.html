@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bangaru Kutumbam Tracking Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fa;
+      color: #2c3e50;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .logo p {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 3px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logout-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #2980b9;
+    }
+
+    .filters-section {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: #667eea;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .apply-filters-btn {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 25px;
+      width: 100%;
+    }
+
+    .apply-filters-btn:hover {
+      background: #219653;
+    }
+
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 24px;
+    }
+
+    .icon-blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .icon-green { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+    .icon-orange { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: white; }
+    .icon-purple { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); color: white; }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #7f8c8d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table-section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .table-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #2c3e50;
+      position: sticky;
+      top: 0;
+    }
+
+    tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .pagination-info {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .page-btn {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .page-btn:hover, .page-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .user-info {
+        justify-content: center;
+      }
+    }
+    
+    /* Login Modal Styles */
+    .login-modal {
+      display: <?!= isLoggedIn ? 'none' : 'block' ?>;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .login-modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .login-form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .login-form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .login-error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Modal -->
+  <div id="loginModal" class="login-modal">
+    <div class="login-modal-content">
+      <h2>Login to Bangaru Kutumbam System</h2>
+      <form id="loginForm">
+        <div class="login-form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username" required>
+        </div>
+        <div class="login-form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+        <div id="loginError" class="login-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Dashboard (initially hidden until login) -->
+  <div id="dashboard" style="<?!= isLoggedIn ? '' : 'display: none;' ?>" class="dashboard-content">
+    <div class="header">
+      <div class="logo">
+        <h1><i class="fas fa-chart-line"></i> Bangaru Kutumbam Tracking</h1>
+        <p>Government of Telangana - Dashboard</p>
+      </div>
+      <div class="user-info">
+        <span id="userInfo">Welcome, User!</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="dashboard-header">
+        <h1 class="page-title"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+        <div class="action-buttons">
+          <button class="btn btn-primary" onclick="openAddEntryModal()"><i class="fas fa-plus"></i> Add New Entry</button>
+          <button class="btn btn-secondary" onclick="refreshData()"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="stats-section">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-number" id="totalBkCount">0</div>
+          <div class="stat-label">Total Bangaru Kutumbam</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-number" id="adoptedBkCount">0</div>
+          <div class="stat-label">BKs Adopted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-orange">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="stat-number" id="mobilizedCount">0</div>
+          <div class="stat-label">Margadarsis Mobilized</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div class="stat-number" id="closedNeedsCount">0</div>
+          <div class="stat-label">Needs Closed</div>
+        </div>
+      </div>
+
+      <!-- Filters Section -->
+      <div class="filters-section">
+        <h2 class="section-title"><i class="fas fa-filter"></i> Filter Data</h2>
+        <div class="filters-grid">
+          <div class="form-group">
+            <label for="filterMandal">Mandal Name</label>
+            <select id="filterMandal" class="form-control">
+              <option value="">All Mandals</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterSecretraiat">Secretariat Name</label>
+            <select id="filterSecretraiat" class="form-control">
+              <option value="">All Secretariats</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterEmployeeId">Employee ID</label>
+            <select id="filterEmployeeId" class="form-control">
+              <option value="">All Employees</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterEmployeeName">Employee Name</label>
+            <select id="filterEmployeeName" class="form-control">
+              <option value="">All Employee Names</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterClusterId">Cluster ID</label>
+            <select id="filterClusterId" class="form-control">
+              <option value="">All Clusters</option>
+            </select>
+          </div>
+        </div>
+        <button class="apply-filters-btn" onclick="applyFilters()">
+          <i class="fas fa-search"></i> Apply Filters
+        </button>
+      </div>
+
+      <!-- Data Table Section -->
+      <div class="data-table-section">
+        <div class="table-header">
+          <h2 class="table-title"><i class="fas fa-table"></i> Data Records</h2>
+          <div class="table-actions">
+            <button class="btn btn-secondary" onclick="exportToCsv()"><i class="fas fa-file-export"></i> Export</button>
+          </div>
+        </div>
+        <div id="loading" class="loading">
+          <div class="spinner"></div>
+          <p>Loading data...</p>
+        </div>
+        <div class="table-container">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>District</th>
+                <th>Mandal</th>
+                <th>Secretariat ID</th>
+                <th>Secretariat Name</th>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Cluster ID</th>
+                <th>Total BK</th>
+                <th>BK Adopted</th>
+                <th>Margadarsis</th>
+                <th>BK Verified</th>
+                <th>Margadarsis Contacted</th>
+                <th>New Needs</th>
+                <th>Engagements</th>
+                <th>Needs Closed</th>
+                <th>Delinking Req</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div class="pagination-info" id="paginationInfo">Showing 0 of 0 records</div>
+          <div class="pagination-controls" id="paginationControls">
+            <!-- Pagination buttons will be generated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add/Edit Entry Modal -->
+    <div id="entryModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('entryModal')">&times;</span>
+        <h2 id="modalTitle">Add New Entry</h2>
+        <form id="entryForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="districtName">District Name *</label>
+              <input type="text" id="districtName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="mandalName">Mandal Name *</label>
+              <input type="text" id="mandalName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="secretariatID">Secretariat ID</label>
+              <input type="text" id="secretariatID" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="secretraiatName">Secretariat Name *</label>
+              <input type="text" id="secretraiatName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="employeeID">Employee ID *</label>
+              <input type="text" id="employeeID" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="employeeName">Employee Name *</label>
+              <input type="text" id="employeeName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="clusterID">Cluster ID *</label>
+              <input type="text" id="clusterID" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="totalBangaruKutumbam">Total Bangaru Kutumbam *</label>
+              <input type="number" id="totalBangaruKutumbam" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfBangaruKutumbamAdopted">BKs Adopted *</label>
+              <input type="number" id="noOfBangaruKutumbamAdopted" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfMargadarsiMobilized">Margadarsis Mobilized *</label>
+              <input type="number" id="noOfMargadarsiMobilized" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="bksVerifiedByGSWS">BKs Verified by GSWS *</label>
+              <input type="number" id="bksVerifiedByGSWS" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="margadarsisContactedByGSWS">Margadarsis Contacted *</label>
+              <input type="number" id="margadarsisContactedByGSWS" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfBksNewNeedsCaptured">New Needs Captured *</label>
+              <input type="number" id="noOfBksNewNeedsCaptured" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfMargadarsisAgreedToAddressBkNeeds">Engagements *</label>
+              <input type="number" id="noOfMargadarsisAgreedToAddressBkNeeds" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfBkNeedsClosed">Needs Closed *</label>
+              <input type="number" id="noOfBkNeedsClosed" class="form-control" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="noOfDelinkingRequestsRaised">Delinking Requests *</label>
+              <input type="number" id="noOfDelinkingRequestsRaised" class="form-control" min="0" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" style="background: #95a5a6; color: white;" onclick="closeModal('entryModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Entry</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const pageSize = 10;
+    let currentFilters = {};
+    let userData = null;
+
+    // Initialize the page when loaded
+    function initializePage() {
+      loadFilterOptions();
+      loadData(currentPage);
+      updateUserDisplay();
+    }
+
+    // Update user display information
+    function updateUserDisplay() {
+      google.script.run
+        .withSuccessHandler(function(user) {
+          if (user) {
+            document.getElementById('userInfo').textContent = `Welcome, ${user.username} (${user.mandal})`;
+            userData = user;
+          }
+        })
+        .checkLoginStatus();
+    }
+
+    // Load filter options
+    function loadFilterOptions() {
+      google.script.run
+        .withSuccessHandler(function(options) {
+          populateSelect('filterMandal', options.mandalNames, 'All Mandals');
+          populateSelect('filterSecretraiat', options.secretraiatNames, 'All Secretariats');
+          populateSelect('filterEmployeeId', options.employeeIds, 'All Employees');
+          populateSelect('filterEmployeeName', options.employeeNames, 'All Employee Names');
+          populateSelect('filterClusterId', options.clusterIds, 'All Clusters');
+        })
+        .getFilterOptions();
+    }
+
+    // Populate select element with options
+    function populateSelect(elementId, options, defaultText) {
+      const select = document.getElementById(elementId);
+      select.innerHTML = `<option value="">${defaultText}</option>`;
+      options.forEach(option => {
+        if (option) {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          select.appendChild(optionElement);
+        }
+      });
+    }
+
+    // Load data with pagination and filters
+    function loadData(page = 1) {
+      document.getElementById('loading').style.display = 'block';
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          document.getElementById('loading').style.display = 'none';
+          displayData(result.data);
+          updatePagination(result.totalRows, result.currentPage, result.totalPages);
+          updateStats(result.data);
+        })
+        .getData(currentFilters, page, pageSize);
+    }
+
+    // Display data in table
+    function displayData(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="17" style="text-align: center;">No records found</td></tr>';
+        return;
+      }
+
+      data.forEach((row, index) => {
+        const tr = document.createElement('tr');
+        
+        // Calculate the actual row number in the original sheet (add 2 because headers are in row 1, data starts at row 2)
+        const actualRowNumber = calculateActualRowNumber(index);
+        
+        tr.innerHTML = `
+          <td>${row[0] || ''}</td>
+          <td>${row[1] || ''}</td>
+          <td>${row[2] || ''}</td>
+          <td>${row[3] || ''}</td>
+          <td>${row[4] || ''}</td>
+          <td>${row[5] || ''}</td>
+          <td>${row[6] || ''}</td>
+          <td>${row[7] || 0}</td>
+          <td>${row[8] || 0}</td>
+          <td>${row[9] || 0}</td>
+          <td>${row[10] || 0}</td>
+          <td>${row[11] || 0}</td>
+          <td>${row[12] || 0}</td>
+          <td>${row[13] || 0}</td>
+          <td>${row[14] || 0}</td>
+          <td>${row[15] || 0}</td>
+          <td>
+            <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px; margin-right: 5px;" onclick="openEditEntryModal(${actualRowNumber}, ${JSON.stringify(row).replace(/"/g, '&quot;')})">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn" style="background: #e74c3c; color: white; padding: 5px 10px; font-size: 12px;" onclick="deleteEntry(${actualRowNumber})">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Calculate actual row number in the Google Sheet
+    function calculateActualRowNumber(index) {
+      // This is a simplified calculation - in a real implementation, 
+      // we would need to account for filtering properly
+      return index + 2; // Adding 2 because data starts at row 2 (after headers)
+    }
+
+    // Update pagination controls
+    function updatePagination(totalRows, currentPageNum, totalPages) {
+      document.getElementById('paginationInfo').textContent = 
+        `Showing ${(currentPageNum - 1) * pageSize + 1} to ${Math.min(currentPageNum * pageSize, totalRows)} of ${totalRows} records`;
+      
+      const container = document.getElementById('paginationControls');
+      container.innerHTML = '';
+
+      // Previous button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+      prevBtn.onclick = () => {
+        if (currentPageNum > 1) {
+          currentPage = currentPageNum - 1;
+          loadData(currentPage);
+        }
+      };
+      prevBtn.disabled = currentPageNum <= 1;
+      container.appendChild(prevBtn);
+
+      // Page numbers
+      for (let i = Math.max(1, currentPageNum - 2); i <= Math.min(totalPages, currentPageNum + 2); i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `page-btn ${i === currentPageNum ? 'active' : ''}`;
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => {
+          currentPage = i;
+          loadData(i);
+        };
+        container.appendChild(pageBtn);
+      }
+
+      // Next button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+      nextBtn.onclick = () => {
+        if (currentPageNum < totalPages) {
+          currentPage = currentPageNum + 1;
+          loadData(currentPage);
+        }
+      };
+      nextBtn.disabled = currentPageNum >= totalPages;
+      container.appendChild(nextBtn);
+    }
+
+    // Update statistics cards
+    function updateStats(data) {
+      let totalBk = 0;
+      let adoptedBk = 0;
+      let mobilized = 0;
+      let closedNeeds = 0;
+
+      data.forEach(row => {
+        totalBk += parseInt(row[7]) || 0;
+        adoptedBk += parseInt(row[8]) || 0;
+        mobilized += parseInt(row[9]) || 0;
+        closedNeeds += parseInt(row[14]) || 0;
+      });
+
+      document.getElementById('totalBkCount').textContent = totalBk;
+      document.getElementById('adoptedBkCount').textContent = adoptedBk;
+      document.getElementById('mobilizedCount').textContent = mobilized;
+      document.getElementById('closedNeedsCount').textContent = closedNeeds;
+    }
+
+    // Apply filters
+    function applyFilters() {
+      currentFilters = {
+        mandalName: document.getElementById('filterMandal').value || undefined,
+        secretraiatName: document.getElementById('filterSecretraiat').value || undefined,
+        employeeId: document.getElementById('filterEmployeeId').value || undefined,
+        employeeName: document.getElementById('filterEmployeeName').value || undefined,
+        clusterId: document.getElementById('filterClusterId').value || undefined
+      };
+
+      currentPage = 1;
+      loadData(currentPage);
+    }
+
+    // Open add entry modal
+    function openAddEntryModal() {
+      document.getElementById('modalTitle').textContent = 'Add New Entry';
+      document.getElementById('entryForm').reset();
+      document.getElementById('entryModal').style.display = 'block';
+      
+      // Set default values for numeric fields
+      document.getElementById('totalBangaruKutumbam').value = 0;
+      document.getElementById('noOfBangaruKutumbamAdopted').value = 0;
+      document.getElementById('noOfMargadarsiMobilized').value = 0;
+      document.getElementById('bksVerifiedByGSWS').value = 0;
+      document.getElementById('margadarsisContactedByGSWS').value = 0;
+      document.getElementById('noOfBksNewNeedsCaptured').value = 0;
+      document.getElementById('noOfMargadarsisAgreedToAddressBkNeeds').value = 0;
+      document.getElementById('noOfBkNeedsClosed').value = 0;
+      document.getElementById('noOfDelinkingRequestsRaised').value = 0;
+    }
+
+    // Open edit entry modal
+    function openEditEntryModal(rowNumber, rowDataArray) {
+      const row = JSON.parse(rowDataArray.replace(/&quot;/g, '"'));
+      
+      document.getElementById('modalTitle').textContent = 'Edit Entry';
+      document.getElementById('entryModal').style.display = 'block';
+      
+      // Fill form with existing data
+      document.getElementById('districtName').value = row[0] || '';
+      document.getElementById('mandalName').value = row[1] || '';
+      document.getElementById('secretariatID').value = row[2] || '';
+      document.getElementById('secretraiatName').value = row[3] || '';
+      document.getElementById('employeeID').value = row[4] || '';
+      document.getElementById('employeeName').value = row[5] || '';
+      document.getElementById('clusterID').value = row[6] || '';
+      document.getElementById('totalBangaruKutumbam').value = row[7] || 0;
+      document.getElementById('noOfBangaruKutumbamAdopted').value = row[8] || 0;
+      document.getElementById('noOfMargadarsiMobilized').value = row[9] || 0;
+      document.getElementById('bksVerifiedByGSWS').value = row[10] || 0;
+      document.getElementById('margadarsisContactedByGSWS').value = row[11] || 0;
+      document.getElementById('noOfBksNewNeedsCaptured').value = row[12] || 0;
+      document.getElementById('noOfMargadarsisAgreedToAddressBkNeeds').value = row[13] || 0;
+      document.getElementById('noOfBkNeedsClosed').value = row[14] || 0;
+      document.getElementById('noOfDelinkingRequestsRaised').value = row[15] || 0;
+
+      // Store row number for later use
+      document.getElementById('entryForm').setAttribute('data-row-number', rowNumber);
+    }
+
+    // Close modal
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Handle form submission
+    document.getElementById('entryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        districtName: document.getElementById('districtName').value,
+        mandalName: document.getElementById('mandalName').value,
+        secretariatID: document.getElementById('secretariatID').value,
+        secretraiatName: document.getElementById('secretraiatName').value,
+        employeeID: document.getElementById('employeeID').value,
+        employeeName: document.getElementById('employeeName').value,
+        clusterID: document.getElementById('clusterID').value,
+        totalBangaruKutumbam: parseInt(document.getElementById('totalBangaruKutumbam').value) || 0,
+        noOfBangaruKutumbamAdopted: parseInt(document.getElementById('noOfBangaruKutumbamAdopted').value) || 0,
+        noOfMargadarsiMobilized: parseInt(document.getElementById('noOfMargadarsiMobilized').value) || 0,
+        bksVerifiedByGSWS: parseInt(document.getElementById('bksVerifiedByGSWS').value) || 0,
+        margadarsisContactedByGSWS: parseInt(document.getElementById('margadarsisContactedByGSWS').value) || 0,
+        noOfBksNewNeedsCaptured: parseInt(document.getElementById('noOfBksNewNeedsCaptured').value) || 0,
+        noOfMargadarsisAgreedToAddressBkNeeds: parseInt(document.getElementById('noOfMargadarsisAgreedToAddressBkNeeds').value) || 0,
+        noOfBkNeedsClosed: parseInt(document.getElementById('noOfBkNeedsClosed').value) || 0,
+        noOfDelinkingRequestsRaised: parseInt(document.getElementById('noOfDelinkingRequestsRaised').value) || 0
+      };
+
+      const rowNumber = this.getAttribute('data-row-number');
+      
+      if (rowNumber) {
+        // Update existing entry
+        google.script.run
+          .withSuccessHandler(function(response) {
+            if (response.success) {
+              alert('Entry updated successfully!');
+              closeModal('entryModal');
+              loadData(currentPage);
+            } else {
+              alert('Error updating entry: ' + response.message);
+            }
+          })
+          .updateDataEntry(parseInt(rowNumber), formData);
+      } else {
+        // Save new entry
+        google.script.run
+          .withSuccessHandler(function(response) {
+            if (response.success) {
+              alert('Entry saved successfully!');
+              closeModal('entryModal');
+              loadData(currentPage);
+            } else {
+              alert('Error saving entry: ' + response.message);
+            }
+          })
+          .saveDataEntry(formData);
+      }
+    });
+
+    // Delete entry
+    function deleteEntry(rowNumber) {
+      if (confirm('Are you sure you want to delete this entry?')) {
+        google.script.run
+          .withSuccessHandler(function(response) {
+            if (response.success) {
+              alert('Entry deleted successfully!');
+              loadData(currentPage);
+            } else {
+              alert('Error deleting entry: ' + response.message);
+            }
+          })
+          .deleteDataEntry(parseInt(rowNumber));
+      }
+    }
+
+    // Logout function
+    function logout() {
+      // In a real implementation, you would handle session cleanup
+      // For now, just reload the page which will take the user back to login
+      window.location.href = window.location.pathname;
+    }
+
+    // Refresh data
+    function refreshData() {
+      loadFilterOptions();
+      loadData(currentPage);
+    }
+
+    // Export to CSV
+    function exportToCsv() {
+      alert('Export functionality would be implemented in a full deployment');
+      // In a real implementation, you would fetch all data and generate a CSV file
+    }
+
+    // Initialize the page when everything is loaded
+    window.onload = initializePage;
+  </script>
+</body>
+</html>
